@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langganan Premium - BarberLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <%- include('partials/sidebar', { activePage: 'ai-stylist', user: user }) %>
+
+        <!-- Main Content -->
+        <main class="main-content d-flex flex-column">
+            <div class="container-fluid">
+                <h1 class="mb-4">Upgrade ke Premium</h1>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="card pricing-card">
+                            <div class="card-body text-center p-4">
+                                <h2 class="card-title">AI Stylist Premium</h2>
+                                <p class="text-white-50">Akses Tanpa Batas</p>
+                                <div class="price-display my-4">
+                                    <span class="currency">Rp</span>
+                                    <span class="amount">50.000</span>
+                                    <span class="period">/bulan</span>
+                                </div>
+                                <ul class="list-unstyled text-start features-list">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Chat Tanpa Batas (Unlimited)</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Tanya Topik Apapun</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Prioritas Respon dari AI</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Dukung Pengembangan Fitur</li>
+                                </ul>
+                                <button id="subscribe-btn" class="btn btn-primary btn-lg w-100 mt-3 fw-bold">Langganan Sekarang</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Midtrans Snap.js -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<%= midtransClientKey %>"></script>
+    <!-- Script khusus untuk halaman ini -->
+    <script src="/js/subscribe.js"></script>
+</body>
+</html>

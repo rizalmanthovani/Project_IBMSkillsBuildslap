@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi OTP - BarberLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bs-body-bg: #121212; --bs-body-color: #e0e0e0; --accent-color: #fca311; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bs-body-bg); color: var(--bs-body-color); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .card { background-color: #1c1c1e; border: 1px solid #3a3a3c; border-radius: 1rem; width: 100%; max-width: 400px; }
+        .card-header { background-color: var(--accent-color); color: #121212; border-bottom: none; border-top-left-radius: 1rem; border-top-right-radius: 1rem; }
+        .form-control { background-color: #2c2c2e; color: var(--bs-body-color); border: 1px solid #3a3a3c; }
+        .form-control:focus { background-color: #2c2c2e; color: var(--bs-body-color); border-color: var(--accent-color); box-shadow: 0 0 0 0.25rem rgba(252, 163, 17, 0.25); }
+        .btn-primary { background-color: var(--accent-color); border-color: var(--accent-color); color: #121212; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="card shadow">
+        <div class="card-header text-center py-3">
+            <h2 class="fw-bold mb-0">VERIFIKASI KODE</h2>
+        </div>
+        <div class="card-body p-4">
+            <% if (error) { %>
+                <div class="alert alert-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i><%= error %></div>
+            <% } %>
+            <p class="text-center text-white-50">
+                Kami telah mengirimkan kode verifikasi ke nomor <strong><%= whatsapp_number %></strong>.
+            </p>
+            <form action="/register/verify" method="POST">
+                <input type="hidden" name="customer_whatsapp" value="<%= whatsapp_number %>">
+                <div class="mb-3">
+                    <label for="otp" class="form-label">Kode OTP</label>
+                    <div class="input-group">
+                        <span class="input-group-text" style="background-color: #2c2c2e; border-color: #3a3a3c; color: var(--accent-color);"><i class="bi bi-shield-lock-fill"></i></span>
+                        <input type="text" class="form-control" id="otp" name="otp" placeholder="Masukkan 6 digit kode" required maxlength="6" pattern="\d{6}">
+                    </div>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Verifikasi & Login</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+    <p class="mb-0">Tidak menerima kode?</p>
+    <button type="button" id="resend-otp-btn" class="btn btn-link">Kirim Ulang OTP</button>
+    <p id="resend-message" class="text-muted small mt-2"></p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const resendBtn = document.getElementById('resend-otp-btn');
+        const resendMsg = document.getElementById('resend-message');
+        const whatsappNumber = document.querySelector('input[name="customer_whatsapp"]').value;
+        let cooldown = 0;
+
+        function startCooldown() {
+            cooldown = 60; // 60 detik cooldown
+            resendBtn.disabled = true;
+            const interval = setInterval(() => {
+                cooldown--;
+                resendBtn.textContent = `Kirim Ulang dalam ${cooldown}s`;
+                if (cooldown <= 0) {
+                    clearInterval(interval);
+                    resendBtn.disabled = false;
+                    resendBtn.textContent = 'Kirim Ulang OTP';
+                }
+            }, 1000);
+        }
+
+        resendBtn.addEventListener('click', async () => {
+            if (cooldown > 0) return;
+
+            resendMsg.textContent = 'Mengirim...';
+            resendMsg.classList.remove('text-danger');
+            resendMsg.classList.add('text-muted');
+
+            try {
+                const response = await fetch('/resend-otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ whatsapp_number: whatsappNumber }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    resendMsg.textContent = result.message;
+                    startCooldown();
+                } else {
+                    resendMsg.textContent = result.message || 'Gagal mengirim ulang OTP.';
+                    resendMsg.classList.add('text-danger');
+                }
+            } catch (error) {
+                console.error('Error resending OTP:', error);
+                resendMsg.textContent = 'Terjadi kesalahan jaringan.';
+                resendMsg.classList.add('text-danger');
+            }
+        });
+    });
+</script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

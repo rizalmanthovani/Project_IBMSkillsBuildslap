@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Pesanan - BarberLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <%- include('partials/sidebar', { activePage: 'history', user: user }) %>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container-fluid">
+                <h1 class="mb-4">Riwayat Pesanan Anda</h1>
+
+                <% if (orders.length === 0) { %>
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p class="lead mb-0">Anda belum memiliki riwayat pesanan.</p>
+                            <a href="/" class="btn btn-primary mt-3">Booking Sekarang</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <% orders.forEach(order => { %>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title fw-bold"><%= order.service_type %></h5>
+                                        <h6 class="card-subtitle mb-2 text-white-50">dengan <%= order.barber_name %></h6>
+                                    </div>
+                                    <% 
+                                        const orderDate = new Date(order.order_start_time);
+                                        const now = new Date();
+                                        let statusClass = 'bg-success'; // Selesai
+                                        let statusText = 'Selesai';
+                                        if (orderDate > now) {
+                                            statusClass = 'bg-warning text-dark'; // Akan Datang
+                                            statusText = 'Akan Datang';
+                                        }
+                                    %>
+                                    <span class="badge rounded-pill <%= statusClass %>"><%= statusText %></span>
+                                </div>
+                                <hr>
+                                <p class="card-text mb-1"><i class="bi bi-calendar-event me-2"></i><%= new Date(order.order_start_time).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+                                <p class="card-text mb-1"><i class="bi bi-clock me-2"></i>Pukul <%= new Date(order.order_start_time).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) %></p>
+                                <p class="card-text"><i class="bi bi-geo-alt me-2"></i><%= order.order_type === 'home-service' ? order.address : 'Datang ke Tempat' %></p>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } %>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarberLux - Booking Keren, Gaya Maksimal</title>
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Link ke file CSS eksternal -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="d-flex">
+    <div class="page-wrapper">
+        <%- include('partials/sidebar', { activePage: 'booking', user: user }) %>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10">
+                        <div class="card">
+                            <div class="card-header text-center py-3">
+                                <h2 class="fw-bold mb-0">BOOK YOUR STYLE</h2>
+                                <p class="mb-0">Pilih layanan dan jadwal Anda</p>
+                            </div>
+                            <div class="card-body p-4">
+                                <% if (error) { %>
+                                    <div class="alert alert-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i><%= error %></div>
+                                <% } %>
+        
+                                <form action="/order" method="POST" id="bookingForm">
+                                    <div class="mb-3">
+                                        <label for="customer_name" class="form-label">Anda</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                                            <input type="text" class="form-control" id="customer_name" name="customer_name" value="<%= user.name %>" readonly>
+                                        </div>
+                                    </div>
+        
+                                    <hr class="my-4">
+        
+                                    <div class="mb-3">
+                                        <label for="order_type" class="form-label">Jenis Pesanan</label>
+                                        <select class="form-select" id="order_type" name="order_type" required>
+                                            <option value="in-shop">Datang ke Tempat</option>
+                                            <option value="home-service">Layanan di Rumah (Home Service)</option>
+                                        </select>
+                                    </div>
+        
+                                    <div class="mb-3" id="address-field" style="display: none;">
+                                        <label for="address" class="form-label">Alamat Lengkap (Home Service)</label>
+                                        <textarea class="form-control" id="address" name="address" rows="3" placeholder="Jl. Keren No. 1, Jakarta"></textarea>
+                                    </div>
+        
+                                    <div class="mb-3">
+                                        <label for="service_type" class="form-label">Pilih Layanan</label>
+                                        <select class="form-select" id="service_type" name="service_type" required>
+                                            <% services.forEach(service => { %>
+                                                <option value="<%= service %>"><%= service %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+        
+                                    <div class="mb-3">
+                                        <label for="barber_id" class="form-label">Pilih Kapster Favorit</label>
+                                        <select class="form-select" id="barber_id" name="barber_id" required>
+                                            <option value="" selected disabled>-- Pilih Kapster --</option>
+                                            <% barbers.forEach(barber => { %>
+                                                <option value="<%= barber.id %>"><%= barber.name %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+        
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="order_date" class="form-label">Tanggal</label>
+                                            <input type="date" class="form-control" id="order_date" name="order_date" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="order_time" class="form-label">Jam Tersedia</label>
+                                            <select class="form-select" id="order_time" name="order_time" required disabled>
+                                                <option>Pilih tanggal & kapster dulu</option>
+                                            </select>
+                                        </div>
+                                    </div>
+        
+                                    <div class="d-grid mt-3">
+                                        <button type="submit" class="btn btn-primary">Booking Sekarang!</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

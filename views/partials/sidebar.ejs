@@ -1,0 +1,31 @@
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <a href="/" class="logo">BarberLux</a>
+    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            <li>
+                <a href="/" class="<%= (typeof activePage !== 'undefined' && activePage === 'booking') ? 'active' : '' %>"><i class="bi bi-scissors"></i> Booking Sekarang</a>
+            </li>
+            <li>
+                <a href="/history" class="<%= (typeof activePage !== 'undefined' && activePage === 'history') ? 'active' : '' %>"><i class="bi bi-clock-history"></i> Riwayat Pesanan</a>
+            </li>
+            <li>
+                <a href="/profile" class="<%= (typeof activePage !== 'undefined' && activePage === 'profile') ? 'active' : '' %>"><i class="bi bi-person-badge"></i> Profil Saya</a>
+            </li>
+            <li>
+                <a href="/about" class="<%= (typeof activePage !== 'undefined' && activePage === 'about') ? 'active' : '' %>"><i class="bi bi-shop"></i> Tentang Kami</a>
+            </li>
+            <li>
+                <a href="/ai-stylist" class="<%= (typeof activePage !== 'undefined' && activePage === 'ai-stylist') ? 'active' : '' %>"><i class="bi bi-robot"></i> Tanya AI Stylist</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="sidebar-footer">
+        <div class="small mb-2">Login sebagai:</div>
+        <div class="fw-bold"><%= user.name %></div>
+        <div class="text-white-50 small">@<%= user.username %></div>
+        <a href="/logout" class="btn btn-sm btn-outline-danger w-100 mt-3">Logout</a>
+    </div>
+</aside>
