@@ -81,6 +81,7 @@ Proyek ini bukan hanya tentang kode, tetapi juga tentang bagaimana memanfaatkan 
     *   Isi file `.env` dengan variabel berikut:
     ```dotenv
     # Konfigurasi Database (Google Cloud SQL)
+    GOOGLE_APPLICATION_CREDENTIALS="./NAME_GOOGLE_CLOUD_CREDENTIAL_KAMU.json"
     INSTANCE_CONNECTION_NAME="project:region:instance"
     DB_USER="your-db-user"
     DB_PASSWORD="your-db-password"
@@ -123,3 +124,4 @@ Proyek ini bukan hanya tentang kode, tetapi juga tentang bagaimana memanfaatkan 
     ```bash
     npm run reset-db
     ```
+
