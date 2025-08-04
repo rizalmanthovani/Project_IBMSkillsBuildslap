@@ -31,7 +31,7 @@ const { initializeWhatsAppClient } = require('./services/unofficialWhatsappServi
 const { initializeDatabase } = require('./db');
 
 const app = express();
-const PORT = process.env.PORT || 8080; // Gunakan port dari environment, default ke 8080 untuk lokal
+const PORT = process.env.PORT || 33879; // Gunakan port dari environment, default ke 8080 untuk lokal
 
 // Setup session middleware
 app.use(session({
@@ -82,3 +82,4 @@ app.use((err, req, res, next) => {
         process.exit(1); // Keluar dari aplikasi dengan kode error
     }
 })();
+
