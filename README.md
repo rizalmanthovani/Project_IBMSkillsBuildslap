@@ -68,8 +68,8 @@ Proyek ini bukan hanya tentang kode, tetapi juga tentang bagaimana memanfaatkan 
 
 1.  **Clone repositori ini:**
     ```bash
-    git clone https://github.com/rizalmanthovani/Project-IBMSkillsBuildWeb.git
-    cd Project-IBMSkillsBuildWeb
+    git clone [https://github.com/rizalmanthovani/Project_IBMSkillsBuildslap.git]
+    cd Project_IBMSkillsBuildslap
     ```
 
 2.  **Install dependensi:**
@@ -126,6 +126,7 @@ Proyek ini bukan hanya tentang kode, tetapi juga tentang bagaimana memanfaatkan 
     npm run reset-db
     ```
 ### Jika memakai IP external maka pembayaran belum bisa integrasi dengan baik 
+
 
 
 
