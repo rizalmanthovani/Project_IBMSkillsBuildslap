@@ -1,6 +1,6 @@
 # BarberLux: Aplikasi Booking Barbershop Modern dengan AI Stylist
 
-**Url Web:** [johncukurship.online] jika tidak bisa pakai [http://34.101.56.67:33879/welcome]
+**Url Web:** [johncukurship.online] jika tidak bisa pakai [http://34.101.251.156:33879/welcome]
 
 
 Ini adalah proyek website pertama saya, sebuah perjalanan belajar yang dimulai pada Februari 2025. BarberLux adalah aplikasi web fungsional yang dibangun dengan Node.js dan Express, dirancang untuk memodernisasi pengalaman booking di barbershop. Proyek ini mengintegrasikan berbagai teknologi modern, termasuk database PostgreSQL di Google Cloud SQL, API pembayaran Midtrans, dan fitur inovatif "AI Stylist" yang didukung oleh Google Gemini. Aplikasi ini dideploy di Google Compute Engine (GCE).
@@ -126,6 +126,7 @@ Proyek ini bukan hanya tentang kode, tetapi juga tentang bagaimana memanfaatkan 
     npm run reset-db
     ```
 ### Jika memakai IP external maka pembayaran belum bisa integrasi dengan baik 
+
 
 
 
